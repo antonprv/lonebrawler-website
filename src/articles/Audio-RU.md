@@ -83,8 +83,10 @@ ScriptableObject `MusicPlayerConfig` задаёт все тайминги:
 
 `TrackPreLoader` (реализующий `ITrackLoader`) загружает ассеты `AudioClip` из Addressables асинхронно.
 
-```api
-UniTask<AudioClip> | LoadAsync(AssetReferenceT<AudioClip> reference, CancellationToken ct) | async
+```csharp
+public async UniTask<AudioClip> LoadAsync(
+    AssetReferenceT<AudioClip> reference,
+    CancellationToken ct)
 ```
 
 Загруженные клипы кешируются по GUID ассета. Когда `AutoAdvanceLoop` вызывает `PreloadNext()`, следующий клип грузится пока в текущем треке ещё `crossfadeDuration` секунд - к началу кросфейда он уже в памяти. `ReleaseAll()` освобождает все загруженные хэндлы за один вызов - в `MusicPlayer.OnDestroy()` и перед каждым `CrossfadeTo()`.
@@ -95,8 +97,13 @@ UniTask<AudioClip> | LoadAsync(AssetReferenceT<AudioClip> reference, Cancellatio
 
 `Fader` (реализующий `IFader`) интерполирует громкость:
 
-```api
-UniTask | Fade(AudioSource source, float from, float to, float duration, CancellationToken ct) | async
+```csharp
+public async UniTask Fade(
+    AudioSource source,
+    float from,
+    float to,
+    float duration,
+    CancellationToken ct)
 ```
 
 Громкость лерпируется покадрово через `ITimeService.UnscaledDeltaTime` - фейды не зависят от `Time.timeScale`, пауза не замораживает выполняющийся fade. `CancellationToken` позволяет немедленно прервать любой fade при запуске новой операции.
