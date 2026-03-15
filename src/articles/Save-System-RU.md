@@ -123,32 +123,25 @@ public interface IProgressWriter
 
 ### Флоу при загрузке уровня
 
-```
-LoadLevelState
-    |
-    |- GameFactory.CreatePlayer() -> регистрирует PlayerHealth, PlayerMove
-    |- GameFactory.CreateEnemySpawners() -> регистрирует инстансы EnemyLootSpawner
-    |
-    +- InformProgressReaders(GameProgress)
-            |  вызывает ReadProgress() на каждом IProgressReader
-            v
-        PlayerHealth восстанавливает CurrentHealth / MaxHealth
-        PlayerMove восстанавливает MovementSpeed / RotationSpeed
-        EnemyLootSpawner проверяет ClearedSpawners -> пропускает или спаунит
-        SoulsTrackerService восстанавливает количество душ
+```flow
+LoadLevelState |
+  GameFactory.CreatePlayer() | регистрирует PlayerHealth, PlayerMove
+  GameFactory.CreateEnemySpawners() | регистрирует инстансы EnemyLootSpawner
+InformProgressReaders(GameProgress) | вызывает ReadProgress() на каждом IProgressReader
+  PlayerHealth | восстанавливает CurrentHealth / MaxHealth
+  PlayerMove | восстанавливает MovementSpeed / RotationSpeed
+  EnemyLootSpawner | проверяет ClearedSpawners -> пропускает или спаунит
+  SoulsTrackerService | восстанавливает количество душ
 ```
 
 ### Флоу при сохранении
 
-```
-SaveLoadService.SaveProgress()
-    |
-    +- foreach writer in GameFactory.ProgressWriters:
-            writer.WriteToProgress(progress)
-            |
-        PlayerHealth записывает CurrentHealth / MaxHealth -> PLayerState
-        PlayerMove записывает MovementSpeed -> PlayerStats
-        PlayerHealth записывает трансформ -> WorldData (через SaveComponent)
+```flow
+SaveLoadService.SaveProgress() |
+  foreach writer in GameFactory.ProgressWriters | writer.WriteToProgress(progress)
+  PlayerHealth | записывает CurrentHealth / MaxHealth -> PLayerState
+  PlayerMove | записывает MovementSpeed -> PlayerStats
+  PlayerHealth | записывает трансформ -> WorldData (через SaveComponent)
 ```
 
 ---

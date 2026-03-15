@@ -123,32 +123,25 @@ Any component that needs to persist state implements one or both. `GameFactory` 
 
 ### Flow on level load
 
-```
-LoadLevelState
-    |
-    |- GameFactory.CreatePlayer() -> registers PlayerHealth, PlayerMove
-    |- GameFactory.CreateEnemySpawners() -> registers EnemyLootSpawner instances
-    |
-    +- InformProgressReaders(GameProgress)
-            |  calls ReadProgress() on every registered IProgressReader
-            v
-        PlayerHealth restores CurrentHealth / MaxHealth
-        PlayerMove restores MovementSpeed / RotationSpeed
-        EnemyLootSpawner checks ClearedSpawners -> skips or spawns
-        SoulsTrackerService restores souls amount
+```flow
+LoadLevelState |
+  GameFactory.CreatePlayer() | registers PlayerHealth, PlayerMove
+  GameFactory.CreateEnemySpawners() | registers EnemyLootSpawner instances
+InformProgressReaders(GameProgress) | calls ReadProgress() on every IProgressReader
+  PlayerHealth | restores CurrentHealth / MaxHealth
+  PlayerMove | restores MovementSpeed / RotationSpeed
+  EnemyLootSpawner | checks ClearedSpawners -> skips or spawns
+  SoulsTrackerService | restores souls amount
 ```
 
 ### Flow on save
 
-```
-SaveLoadService.SaveProgress()
-    |
-    +- foreach writer in GameFactory.ProgressWriters:
-            writer.WriteToProgress(progress)
-            |
-        PlayerHealth writes CurrentHealth / MaxHealth -> PLayerState
-        PlayerMove writes MovementSpeed -> PlayerStats
-        PlayerHealth writes transform -> WorldData (via SaveComponent)
+```flow
+SaveLoadService.SaveProgress() |
+  foreach writer in GameFactory.ProgressWriters | writer.WriteToProgress(progress)
+  PlayerHealth | writes CurrentHealth / MaxHealth -> PLayerState
+  PlayerMove | writes MovementSpeed -> PlayerStats
+  PlayerHealth | writes transform -> WorldData (via SaveComponent)
 ```
 
 ---
