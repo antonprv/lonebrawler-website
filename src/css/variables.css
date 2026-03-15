@@ -1,0 +1,80 @@
+/* ============================================================
+   variables.css — Design tokens for Lone Brawler Wiki.
+   Accent colours are overridden at runtime by config-loader.js
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Fallback accents (before config loads) ── */
+:root {
+  --accent-dark:  #e8774a;
+  --accent-light: #c4542a;
+}
+
+/* ── Dark theme (default) ── */
+:root {
+  --accent:   var(--accent-dark);
+
+  --bg:       #0d0d0d;
+  --surface:  #161616;
+  --card:     #1c1c1c;
+  --accent2:  #f5b07a;
+  --text:     #f0ece4;
+  --muted:    #8a8070;
+  --border:   var(--border-dark,          rgba(232, 119, 74, 0.18));
+  --glow:     var(--glow-dark,            rgba(232, 119, 74, 0.10));
+
+  --gradient-top:    var(--gradient-top-dark,  rgba(232, 119, 74, 0.12));
+  --gradient-bottom: var(--gradient-bot-dark,  rgba(232, 119, 74, 0.06));
+
+  --sidebar-w: 248px;
+}
+
+/* ── Light theme ── */
+[data-theme="light"] {
+  --accent:   var(--accent-light);
+
+  --bg:       #e8e6e1;
+  --surface:  #d9d7d2;
+  --card:     #cfcdbc;
+  --accent2:  #8b4510;
+  --text:     #1a1a1a;
+  --muted:    #4a4a4a;
+  --border:   var(--border-light,         rgba(196, 84, 42, 0.22));
+  --glow:     var(--glow-light,           rgba(196, 84, 42, 0.10));
+
+  --gradient-top:    var(--gradient-top-light, rgba(196, 84, 42, 0.14));
+  --gradient-bottom: var(--gradient-bot-light, rgba(196, 84, 42, 0.07));
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color:       var(--bg);
+  background-image:       var(--noise-svg);
+  background-attachment:  fixed;
+  color:       var(--text);
+  font-family: inherit;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x:  hidden;
+}
+
+/* ── Gradient overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--gradient-top)    0%,
+    transparent            50%,
+    var(--gradient-bottom) 100%
+  );
+  pointer-events: none;
+  z-index: 9999;
+}

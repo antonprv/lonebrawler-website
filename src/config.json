@@ -1,0 +1,29 @@
+{
+  "_doc": "Lone Brawler Wiki — central config. Edit accent colours, project name and repo URL here.",
+  "site": {
+    "project":      "Lone Brawler",
+    "taglineRu":    "3D экшн на Unity",
+    "taglineEn":    "3D Action on Unity",
+    "descRu":       "Wiki — документация всех систем",
+    "descEn":       "Wiki — documentation of all systems",
+    "repoUrl":      "",
+    "stats": {
+      "csFiles":    442,
+      "articles":   13,
+      "testFiles":  53
+    }
+  },
+  "theme": {
+    "accentDark":  "#e8774a",
+    "accentLight": "#c4542a"
+  },
+  "noise": {
+    "frequency": 0.65,
+    "octaves":   1
+  },
+  "font": {
+    "family":   "system-ui",
+    "fallback": "sans-serif"
+  },
+  "articlesDir": "articles"
+}

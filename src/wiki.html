@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wiki — Lone Brawler</title>
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/wiki.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══════ TOP BAR ═══════ -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="sidebar-toggle" id="sidebar-toggle"
+              aria-label="Toggle navigation" onclick="toggleSidebar()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+      </button>
+
+      <button class="theme-switcher" id="theme-toggle"
+              aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg class="theme-icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+
+      <div class="topbar-sep"></div>
+      <span class="topbar-label t" data-ru="Вики" data-en="Wiki">Вики</span>
+    </div>
+
+    <div class="topbar-right">
+      <nav class="topbar-nav" aria-label="Site navigation">
+        <a class="topbar-nav-link" href="index.html">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span class="t" data-ru="Главная" data-en="Home">Главная</span>
+        </a>
+        <a class="topbar-nav-link topbar-nav-link--active" href="wiki.html">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+          </svg>
+          <span class="t" data-ru="Вики" data-en="Wiki">Вики</span>
+        </a>
+      </nav>
+
+      <div class="lang-switcher" role="group" aria-label="Language">
+        <button class="lang-btn active" id="btn-ru" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn"        id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════ LAYOUT ═══════ -->
+  <div class="main">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar" id="sidebar">
+      <button class="sidebar-home-btn t" id="sidebar-home-btn"
+              data-ru="Главная" data-en="Home"
+              onclick="showWikiHome()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Главная
+      </button>
+
+      <div id="wiki-sidebar-list">
+        <!-- populated by wiki.js after config loads -->
+        <div class="wiki-loading" style="padding: 2rem 0;">
+          <div class="wiki-loading-dot"></div>
+          <div class="wiki-loading-dot"></div>
+          <div class="wiki-loading-dot"></div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile backdrop -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeSidebar()"></div>
+
+    <!-- CONTENT -->
+    <main class="content" id="wiki-content">
+      <div class="wiki-content">
+        <div class="wiki-loading">
+          <div class="wiki-loading-dot"></div>
+          <div class="wiki-loading-dot"></div>
+          <div class="wiki-loading-dot"></div>
+        </div>
+      </div>
+    </main>
+
+  </div><!-- /.main -->
+
+  <footer>
+    <span class="t" data-ru="© 2025 Lone Brawler Wiki" data-en="© 2025 Lone Brawler Wiki">
+      © 2025 Lone Brawler Wiki
+    </span>
+  </footer>
+
+</div><!-- /.app -->
+
+<script src="js/theme.js"></script>
+<script src="js/lang.js"></script>
+<script src="js/marked.min.js"></script>
+<script src="js/config-loader.js"></script>
+<script src="js/wiki.js"></script>
+
+</body>
+</html>

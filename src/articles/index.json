@@ -1,0 +1,136 @@
+{
+  "_doc": "Wiki structure. To add a new article: 1) create articles/MyArticle-EN.md and articles/MyArticle-RU.md, 2) add an entry here.",
+  "groups": [
+    {
+      "id": "architecture",
+      "titleRu": "Архитектура и инфраструктура",
+      "titleEn": "Architecture & Infrastructure",
+      "articles": [
+        {
+          "id":      "Architecture",
+          "titleRu": "Архитектура",
+          "titleEn": "Architecture",
+          "descRu":  "Game State Machine, Addressables, InstallerFactory",
+          "descEn":  "Game State Machine, Addressables, InstallerFactory",
+          "icon":    "box"
+        },
+        {
+          "id":      "Zenjex",
+          "titleRu": "Zenjex — DI Framework",
+          "titleEn": "Zenjex — DI Framework",
+          "descRu":  "Три прохода инъекции, fluent binding API, sub-контейнеры",
+          "descEn":  "Three injection passes, fluent binding API, sub-containers",
+          "icon":    "code"
+        },
+        {
+          "id":      "Platform-and-SDKs",
+          "titleRu": "Платформа и SDK",
+          "titleEn": "Platform & SDKs",
+          "descRu":  "Yandex Games SDK, реклама, IAP, облачные сохранения",
+          "descEn":  "Yandex Games SDK, ads, IAP, cloud saves",
+          "icon":    "monitor"
+        }
+      ]
+    },
+    {
+      "id": "gameplay",
+      "titleRu": "Геймплей",
+      "titleEn": "Gameplay",
+      "articles": [
+        {
+          "id":      "Gameplay",
+          "titleRu": "Геймплейные системы",
+          "titleEn": "Gameplay Systems",
+          "descRu":  "Игрок, ИИ врагов, система душ, телепортация",
+          "descEn":  "Player, enemy AI, souls system, level teleportation",
+          "icon":    "play"
+        },
+        {
+          "id":      "Buff-System",
+          "titleRu": "Система баффов",
+          "titleEn": "Buff System",
+          "descRu":  "BuffBase, типы активации, сохранение и восстановление",
+          "descEn":  "BuffBase lifecycle, activation types, save & restore",
+          "icon":    "zap"
+        },
+        {
+          "id":      "Inventory",
+          "titleRu": "Инвентарь и хотбар",
+          "titleEn": "Inventory & Hotbar",
+          "descRu":  "Drag & drop, Addressables иконки, тултипы",
+          "descEn":  "Drag & drop, Addressables icons, tooltip system",
+          "icon":    "grid"
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "titleRu": "Данные и сервисы",
+      "titleEn": "Data & Services",
+      "articles": [
+        {
+          "id":      "Save-System",
+          "titleRu": "Система сохранений",
+          "titleEn": "Save System",
+          "descRu":  "GameProgress, SaveLoadService, LiveProgressSync",
+          "descEn":  "GameProgress, SaveLoadService, LiveProgressSync",
+          "icon":    "save"
+        },
+        {
+          "id":      "Audio",
+          "titleRu": "Аудиосистема",
+          "titleEn": "Audio System",
+          "descRu":  "MusicPlayer, кросфейд, shuffle, SFX, ReactiveProperty",
+          "descEn":  "MusicPlayer, crossfade, shuffle, SFX, ReactiveProperty",
+          "icon":    "volume"
+        }
+      ]
+    },
+    {
+      "id": "ui",
+      "titleRu": "UI и фронтенд",
+      "titleEn": "UI & Frontend",
+      "articles": [
+        {
+          "id":      "UI",
+          "titleRu": "UI и фронтенд",
+          "titleEn": "UI & Frontend",
+          "descRu":  "Оконная система, Dev Console MVVM, HUD, шторка загрузки",
+          "descEn":  "Window system, Dev Console MVVM, HUD, loading curtain",
+          "icon":    "layout"
+        }
+      ]
+    },
+    {
+      "id": "tooling",
+      "titleRu": "Инструментарий и библиотеки",
+      "titleEn": "Tooling & Libraries",
+      "articles": [
+        {
+          "id":      "Editor-Tooling",
+          "titleRu": "Редакторный инструментарий",
+          "titleEn": "Editor Tooling",
+          "descRu":  "Scene Switcher, Quick Look, Level Static Data, манифесты",
+          "descEn":  "Scene Switcher, Quick Look, Level Static Data, manifests",
+          "icon":    "tool"
+        },
+        {
+          "id":      "Custom-Libraries",
+          "titleRu": "Собственные библиотеки",
+          "titleEn": "Custom Libraries & Extensions",
+          "descRu":  "FastMath, сериализуемые векторы, UniTask, GameLogger",
+          "descEn":  "FastMath, serialisable vectors, UniTask extensions, GameLogger",
+          "icon":    "book"
+        },
+        {
+          "id":      "Testing",
+          "titleRu": "Тестирование",
+          "titleEn": "Testing",
+          "descRu":  "ZenjexTestBootstrap, 53 тестовых файла, benchmarks",
+          "descEn":  "ZenjexTestBootstrap, 53 test files, Performance benchmarks",
+          "icon":    "check"
+        }
+      ]
+    }
+  ]
+}

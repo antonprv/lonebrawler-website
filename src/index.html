@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lone Brawler</title>
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/wiki.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══════ TOP BAR ═══════ -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="theme-switcher" id="theme-toggle"
+              aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg class="theme-icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="topbar-right">
+      <nav class="topbar-nav" aria-label="Site navigation">
+        <a class="topbar-nav-link topbar-nav-link--active" href="index.html">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span class="t" data-ru="Главная" data-en="Home">Главная</span>
+        </a>
+        <a class="topbar-nav-link" href="wiki.html">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+          </svg>
+          <span class="t" data-ru="Вики" data-en="Wiki">Вики</span>
+        </a>
+      </nav>
+
+      <a class="repo-link" id="repo-link" href="#" style="display:none"
+         target="_blank" rel="noopener" aria-label="GitHub repository">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 015.74 0C17.3 5.37 18.26 5.68 18.26 5.68c.62 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.15c0 .31.21.67.8.56C20.2 21.4 23.5 17.1 23.5 12 23.5 5.65 18.35.5 12 .5z"/>
+        </svg>
+        GitHub
+      </a>
+
+      <div class="lang-switcher" role="group" aria-label="Language">
+        <button class="lang-btn active" id="btn-ru" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn"        id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════ MAIN CONTENT ═══════ -->
+  <main class="home-main">
+
+    <!-- HERO -->
+    <section class="home-hero">
+      <div class="home-hero-inner home-hero-inner--centered">
+        <div class="home-hero-text home-hero-text--centered">
+
+          <h1 class="home-tagline">
+            <span class="t" data-ru="Lone Brawler" data-en="Lone Brawler">Lone Brawler</span>
+          </h1>
+
+          <p class="home-sub t"
+             data-ru="3D экшн на Unity. Полный производственный цикл: геймплейные системы, инфраструктура, UI, управление данными, редакторный инструментарий и собственные библиотеки — 442 файла на C#."
+             data-en="3D action game built in Unity. Full production pipeline: gameplay systems, infrastructure, UI, data management, editor tooling, and in-house libraries — 442 C# files.">
+            3D экшн на Unity. Полный производственный цикл: геймплейные системы, инфраструктура, UI, управление данными, редакторный инструментарий и собственные библиотеки — 442 файла на C#.
+          </p>
+
+          <div class="home-cta-row home-cta-row--centered">
+            <a class="home-btn-download" href="wiki.html">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+              </svg>
+              <span class="t" data-ru="Открыть вики" data-en="Open Wiki">Открыть вики</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="home-section reveal">
+      <div class="home-section-inner">
+
+        <h2 class="home-section-title t"
+            data-ru="О проекте"
+            data-en="About the project">О проекте</h2>
+
+        <div class="home-about-grid">
+          <div class="home-about-text">
+            <p class="home-paragraph t"
+               data-ru="Lone Brawler — соло-проект 3D экшна, разработанного в Unity с нуля до продакшн-состояния. Кодовая база включает все уровни игрового приложения: инфраструктуру, геймплей, UI и инструментарий разработчика."
+               data-en="Lone Brawler is a solo 3D action project developed in Unity from scratch to production quality. The codebase covers all layers of a game application: infrastructure, gameplay, UI, and developer tooling.">
+              Lone Brawler — соло-проект 3D экшна, разработанного в Unity с нуля до продакшн-состояния. Кодовая база включает все уровни игрового приложения: инфраструктуру, геймплей, UI и инструментарий разработчика.
+            </p>
+            <p class="home-paragraph t"
+               data-ru="В основе архитектуры — Game State Machine с payload-переходами, собственный DI-фреймворк <code>Zenjex</code> на базе Reflex, и кеширующий слой поверх Unity Addressables. Инъекция зависимостей работает через три прохода, гарантируя заполнение полей до вызова Awake()."
+               data-en="The architecture is built around a Game State Machine with payload transitions, a custom DI framework <code>Zenjex</code> built on Reflex, and a caching layer over Unity Addressables. Dependency injection runs across three passes, guaranteeing field population before Awake() fires.">
+              В основе архитектуры — Game State Machine с payload-переходами, собственный DI-фреймворк <code>Zenjex</code> на базе Reflex, и кеширующий слой поверх Unity Addressables. Инъекция зависимостей работает через три прохода, гарантируя заполнение полей до вызова Awake().
+            </p>
+          </div>
+
+          <div class="home-code-block">
+            <div class="home-code-header">
+              <span class="home-code-lang">C#</span>
+            </div>
+            <pre class="home-code"><code><span class="c-kw">public class</span> <span class="c-type">PlayerHealth</span> : <span class="c-type">ZenjexBehaviour</span>,
+    <span class="c-type">IHealth</span>, <span class="c-type">IProgressReader</span>
+{
+    [<span class="c-attr">Zenjex</span>] <span class="c-kw">private</span> <span class="c-type">IBuffTrackerService</span> _buffs;
+    [<span class="c-attr">Zenjex</span>] <span class="c-kw">private</span> <span class="c-type">ISoundService</span>      _sound;
+
+    <span class="c-kw">protected override void</span> <span class="c-fn">OnAwake</span>()
+    {
+        <span class="c-comm">// Поля заполнены до OnAwake ✓</span>
+        _buffs.<span class="c-fn">GetPlayerBuffs</span>()
+              .<span class="c-fn">Subscribe</span>(OnBuffChanged);
+    }
+}</code></pre>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="home-section home-section--alt reveal">
+      <div class="home-section-inner">
+
+        <h2 class="home-section-title t"
+            data-ru="Ключевые системы"
+            data-en="Key Systems">Ключевые системы</h2>
+
+        <div class="home-features-grid">
+
+          <div class="home-feature-card">
+            <div class="home-feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+              </svg>
+            </div>
+            <h3 class="home-feature-title t" data-ru="Game State Machine" data-en="Game State Machine">Game State Machine</h3>
+            <p class="home-feature-desc t"
+               data-ru="Единая точка управления переходами между состояниями приложения. Поддержка payload-переходов через обобщённые интерфейсы."
+               data-en="Single point of control for all application state transitions. Supports payload transitions through generic interfaces.">
+              Единая точка управления переходами между состояниями приложения. Поддержка payload-переходов через обобщённые интерфейсы.
+            </p>
+          </div>
+
+          <div class="home-feature-card">
+            <div class="home-feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <h3 class="home-feature-title t" data-ru="Zenjex — DI Framework" data-en="Zenjex — DI Framework">Zenjex — DI Framework</h3>
+            <p class="home-feature-desc t"
+               data-ru="Собственный open-source DI-фреймворк на базе Reflex. Три прохода инъекции с дедупликацией, fluent binding API, scene-scoped sub-контейнеры."
+               data-en="Custom open-source DI framework built on Reflex. Three injection passes with deduplication, fluent binding API, scene-scoped sub-containers.">
+              Собственный open-source DI-фреймворк на базе Reflex. Три прохода инъекции с дедупликацией, fluent binding API, scene-scoped sub-контейнеры.
+            </p>
+          </div>
+
+          <div class="home-feature-card">
+            <div class="home-feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </div>
+            <h3 class="home-feature-title t" data-ru="Система баффов" data-en="Buff System">Система баффов</h3>
+            <p class="home-feature-desc t"
+               data-ru="Чистые C# классы — не MonoBehaviour. Три типа активации, реактивное состояние, полный пайплайн сохранения и восстановления с частичным временем."
+               data-en="Pure C# classes — not MonoBehaviours. Three activation types, reactive state, full save & restore pipeline including partial-duration restoration.">
+              Чистые C# классы — не MonoBehaviour. Три типа активации, реактивное состояние, полный пайплайн сохранения и восстановления с частичным временем.
+            </p>
+          </div>
+
+          <div class="home-feature-card">
+            <div class="home-feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path d="M15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/>
+              </svg>
+            </div>
+            <h3 class="home-feature-title t" data-ru="Аудиосистема" data-en="Audio System">Аудиосистема</h3>
+            <p class="home-feature-desc t"
+               data-ru="Полностью async MusicPlayer: кросфейд, предзагрузка, Fisher-Yates shuffle. SFX с рандомизацией клипов. Реактивная привязка громкости через ISoundService."
+               data-en="Fully async MusicPlayer: crossfade, preloading, Fisher-Yates shuffle. SFX with randomised clip groups. Reactive volume binding through ISoundService.">
+              Полностью async MusicPlayer: кросфейд, предзагрузка, Fisher-Yates shuffle. SFX с рандомизацией клипов. Реактивная привязка громкости через ISoundService.
+            </p>
+          </div>
+
+          <div class="home-feature-card">
+            <div class="home-feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M3 9h18M9 21V9"/>
+              </svg>
+            </div>
+            <h3 class="home-feature-title t" data-ru="UI — MVVM Dev Console" data-en="UI — MVVM Dev Console">UI — MVVM Dev Console</h3>
+            <p class="home-feature-desc t"
+               data-ru="Оконная система на Addressables, Dev Console в полном MVVM (4 слоя, 14 команд), реактивный HUD, шкалы здоровья в мировом пространстве."
+               data-en="Addressables-based window system, Dev Console in full MVVM (4 layers, 14 commands), reactive HUD, world-space health bars.">
+              Оконная система на Addressables, Dev Console в полном MVVM (4 слоя, 14 команд), реактивный HUD, шкалы здоровья в мировом пространстве.
+            </p>
+          </div>
+
+          <div class="home-feature-card">
+            <div class="home-feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polyline points="9 11 12 14 22 4"/>
+                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+              </svg>
+            </div>
+            <h3 class="home-feature-title t" data-ru="Тестирование" data-en="Testing">Тестирование</h3>
+            <p class="home-feature-desc t"
+               data-ru="53 тестовых файла: EditMode юнит-тесты, PlayMode интеграционные тесты, Unity Performance Testing benchmarks. ZenjexTestBootstrap — минимальный DI для тестов."
+               data-en="53 test files: EditMode unit tests, PlayMode integration tests, Unity Performance Testing benchmarks. ZenjexTestBootstrap — minimal DI container for tests.">
+              53 тестовых файла: EditMode юнит-тесты, PlayMode интеграционные тесты, Unity Performance Testing benchmarks. ZenjexTestBootstrap — минимальный DI для тестов.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK LINKS -->
+    <section class="home-section reveal">
+      <div class="home-section-inner">
+
+        <h2 class="home-section-title t"
+            data-ru="Быстрые ссылки"
+            data-en="Quick Links">Быстрые ссылки</h2>
+
+        <div class="home-links-grid">
+
+          <a class="home-link-card" href="wiki.html#Architecture">
+            <div class="home-link-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="home-link-card-title t" data-ru="Архитектура" data-en="Architecture">Архитектура</div>
+              <div class="home-link-card-desc t" data-ru="Game State Machine, Addressables, InstallerFactory" data-en="Game State Machine, Addressables, InstallerFactory">Game State Machine, Addressables, InstallerFactory</div>
+            </div>
+            <svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+
+          <a class="home-link-card" href="wiki.html#Zenjex">
+            <div class="home-link-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <div>
+              <div class="home-link-card-title">Zenjex — DI</div>
+              <div class="home-link-card-desc t" data-ru="Fluent binding API, три прохода инъекции" data-en="Fluent binding API, three injection passes">Fluent binding API, три прохода инъекции</div>
+            </div>
+            <svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+
+          <a class="home-link-card" href="wiki.html#Gameplay">
+            <div class="home-link-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+            </div>
+            <div>
+              <div class="home-link-card-title t" data-ru="Геймплей" data-en="Gameplay">Геймплей</div>
+              <div class="home-link-card-desc t" data-ru="Игрок, ИИ врагов, система душ" data-en="Player, enemy AI, souls system">Игрок, ИИ врагов, система душ</div>
+            </div>
+            <svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+
+          <a class="home-link-card" href="wiki.html#Save-System">
+            <div class="home-link-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+                <polyline points="17 21 17 13 7 13 7 21"/>
+              </svg>
+            </div>
+            <div>
+              <div class="home-link-card-title t" data-ru="Система сохранений" data-en="Save System">Система сохранений</div>
+              <div class="home-link-card-desc t" data-ru="GameProgress, SaveLoadService, LiveProgressSync" data-en="GameProgress, SaveLoadService, LiveProgressSync">GameProgress, SaveLoadService, LiveProgressSync</div>
+            </div>
+            <svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+
+          <a class="home-link-card" href="wiki.html#Custom-Libraries">
+            <div class="home-link-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="home-link-card-title t" data-ru="Библиотеки" data-en="Libraries">Библиотеки</div>
+              <div class="home-link-card-desc t" data-ru="FastMath, Quake III sqrt, сериализуемые типы" data-en="FastMath, Quake III sqrt, serialisable types">FastMath, Quake III sqrt, сериализуемые типы</div>
+            </div>
+            <svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+
+          <a class="home-link-card" href="wiki.html#Testing">
+            <div class="home-link-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polyline points="9 11 12 14 22 4"/>
+                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+              </svg>
+            </div>
+            <div>
+              <div class="home-link-card-title t" data-ru="Тестирование" data-en="Testing">Тестирование</div>
+              <div class="home-link-card-desc t" data-ru="53 теста: unit, integration, benchmarks" data-en="53 tests: unit, integration, benchmarks">53 теста: unit, integration, benchmarks</div>
+            </div>
+            <svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="home-footer">
+    <span class="t" id="footer-text"
+          data-ru="© 2025 Lone Brawler"
+          data-en="© 2025 Lone Brawler">© 2025 Lone Brawler</span>
+  </footer>
+
+</div><!-- /.app -->
+
+<script src="js/theme.js"></script>
+<script src="js/config-loader.js"></script>
+<script src="js/lang.js"></script>
+<script src="js/scroll.js"></script>
+
+<script>
+/* Home page: no wiki.js needed. Just patch footer when config loads. */
+document.addEventListener('wiki:ready', () => {
+  const cfg = window.__cfg;
+  if (!cfg) return;
+
+  /* Footer year */
+  const footerEl = document.getElementById('footer-text');
+  if (footerEl) {
+    const p  = cfg.site?.project || 'Lone Brawler';
+    const yr = new Date().getFullYear();
+    footerEl.setAttribute('data-ru', `© ${yr}\u00a0${p}`);
+    footerEl.setAttribute('data-en', `© ${yr}\u00a0${p}`);
+    const lang = window.getCurrentLang?.() || 'ru';
+    footerEl.textContent = footerEl.getAttribute('data-' + lang);
+  }
+});
+
+/* Lang re-render for home page: just the .t fade pattern */
+function rerenderCurrentLang(lang) {
+  /* handled by lang.js .t fade — nothing else to re-render on home */
+}
+</script>
+
+</body>
+</html>

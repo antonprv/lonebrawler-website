@@ -1,0 +1,54 @@
+/* ============================================================
+   animations.css — Keyframes & transition helpers
+   ============================================================ */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Scroll reveal (same class name as portfolio) ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Language fade (same .t / .fading pattern) ── */
+.t {
+  transition: opacity 0.18s ease;
+}
+.t.fading {
+  opacity: 0;
+}
+
+/* ── Release body entry ── */
+.release-body {
+  animation: fadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Section stagger ── */
+.release-section {
+  animation: fadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.release-section:nth-child(1) { animation-delay: 0.04s; }
+.release-section:nth-child(2) { animation-delay: 0.08s; }
+.release-section:nth-child(3) { animation-delay: 0.12s; }
+.release-section:nth-child(4) { animation-delay: 0.16s; }
+.release-section:nth-child(5) { animation-delay: 0.20s; }
+.release-section:nth-child(6) { animation-delay: 0.24s; }
+.release-section:nth-child(7) { animation-delay: 0.28s; }
+.release-section:nth-child(8) { animation-delay: 0.32s; }
