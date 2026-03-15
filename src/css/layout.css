@@ -286,7 +286,8 @@
 
 /* ── Footer ── */
 footer {
-  margin-left: var(--sidebar-w);
+  margin-left: 0;
+  width: 100%;
   padding: 1.6rem 3rem;
   border-top: 1px solid var(--border);
   color: var(--muted);
