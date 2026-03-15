@@ -31,7 +31,7 @@ function initWiki() {
 
   /* Navigate to article from URL hash, or show home */
   const hash = decodeURIComponent(location.hash.slice(1));
-  if (hash) {
+  if (hash && /^[A-Z]/.test(hash)) {
     const found = findArticle(hash, cfg.wikiGroups);
     if (found) { loadArticle(hash); return; }
   }
@@ -332,6 +332,12 @@ function closeSidebar() {
 window.addEventListener('popstate', () => {
   const hash = decodeURIComponent(location.hash.slice(1));
   if (!hash) { showWikiHome(); return; }
+
+  // Article IDs always start with uppercase (Architecture, Buff-System, etc.)
+  // In-page section anchors are lowercase (overview, game-state-machine, etc.)
+  // Don't intercept anchor navigation - let the browser scroll naturally.
+  if (!/^[A-Z]/.test(hash)) return;
+
   const found = findArticle(hash, window.__cfg?.wikiGroups);
   if (found) loadArticle(hash);
   else showWikiHome();
