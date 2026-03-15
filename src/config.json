@@ -31,5 +31,6 @@
       }
     ]
   },
-  "articlesDir": "articles"
+  "articlesDir": "articles",
+  "imagesDir":   "images"
 }

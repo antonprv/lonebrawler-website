@@ -230,6 +230,15 @@ async function renderArticle(articleId, lang) {
   const body = document.createElement('div');
   body.className = 'wiki-body';
   body.innerHTML = html;
+
+  /* Resolve data-img="filename.gif" → src="imagesDir/filename.gif"
+     Articles use data-img so the markdown parser never touches the path.
+     wiki.js builds the correct URL here, using imagesDir from config. */
+  const imagesDir = (window.__cfg?.imagesDir || 'images').replace(/\/$/, '');
+  body.querySelectorAll('img[data-img]').forEach(img => {
+    img.src = imagesDir + '/' + img.dataset.img;
+  });
+
   wrap.appendChild(body);
 
   /* Prev / Next navigation */

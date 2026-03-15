@@ -84,8 +84,8 @@ private TState ChangeState<TState>() where TState : class, IGameExitableState
 `GetCurrentState()` returns a `StateType` enum value, letting any system check the current application phase without holding a reference to the machine's internals.
 
 <figure class="diagram-gif-wrap">
-  <img class="diagram-gif--dark"  src="images/gamestate_diagram_dark.gif"  alt="GameState transition diagram — dark theme" width="640" height="480">
-  <img class="diagram-gif--light" src="images/gamestate_diagram_light.gif" alt="GameState transition diagram — light theme" width="640" height="480">
+  <img class="diagram-gif--dark"  data-img="gamestate_diagram_dark.gif"  alt="GameState transition diagram — dark theme" width="640" height="480">
+  <img class="diagram-gif--light" data-img="gamestate_diagram_light.gif" alt="GameState transition diagram — light theme" width="640" height="480">
 </figure>
 
 ---
