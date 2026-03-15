@@ -87,12 +87,16 @@ Fires for scenes loaded additively after launch. Unity has already called `Awake
 
 Each injected instance is stored by `GetInstanceID()` in a `HashSet<int>`. Before injecting, `ZenjexRunner` checks the set - if the ID is already there, the object is skipped. `ZenjexBehaviour.Awake()` calls `ZenjexRunner.MarkInjected(this)` to pre-register itself, so no subsequent pass touches it again.
 
-```
-Pass 1 injects:  Component A (plain MonoBehaviour)
-ZenjexBehaviour.Awake injects: Component B -> MarkInjected(B)
-Pass 2 injects:  Component C (depends on late binding)
-                 Component B -> skipped (already in HashSet)
-Pass 3 injects:  Component D (additive scene) -> ZNX-LATE warning
+```timeline
+[Pass 1]
+Component A | plain MonoBehaviour — injected
+[ZenjexBehaviour.Awake]
+Component B | self-injects -> MarkInjected(B)
+[Pass 2]
+Component C | depends on late binding — injected
+Component B | already in HashSet — skipped
+[Pass 3]
+Component D | additive scene -> ZNX-LATE warning
 ```
 
 ---

@@ -41,21 +41,13 @@ public interface IGamePayloadedState<TPayload> : IGameExitableState
 
 ### Граф переходов
 
-```
-BootstrapperState
-    │  загружает Addressables, строит DI-контейнер, инициализирует сервисы
-    ▼
-LoadProgressState
-    │  читает PlayerPrefs / облачный сейв, валидирует GameProgress
-    ▼
-MainMenuState
-    │  создаёт UI главного меню, ждёт ввода игрока
-    ▼
-LoadLevelState  <- получает string payload (ключ уровня)
-    │  сохраняет прогресс, загружает сцену, спаунит игрока
-    ▼
-GameLoopState
-    │  запускает LiveProgressSync, активирует геймплей
+```flow
+BootstrapperState | загружает Addressables, строит DI-контейнер, инициализирует сервисы
+LoadProgressState | читает PlayerPrefs / облачный сейв, валидирует GameProgress
+MainMenuState | создаёт UI главного меню, ждёт ввода игрока
+LoadLevelState | получает string payload (ключ уровня)
+  сохраняет прогресс, загружает сцену, спаунит игрока |
+GameLoopState | запускает LiveProgressSync, активирует геймплей
 ```
 
 ### Реализация машины
@@ -115,15 +107,15 @@ Zenjex подробно разобран в отдельной статье: **[
 
 ### API
 
-```csharp
-UniTask<T>          LoadAsync<T>(AssetReference assetReference)
-UniTask<T>          LoadAsync<T>(string assetAddress)
-UniTask<GameObject> InstantiateAsync(string address)
-UniTask<GameObject> InstantiateAsync(string address, Transform parent)
-UniTask<GameObject> InstantiateAsync(AssetReference assetReference)
-UniTask<GameObject> InstantiateAsync(AssetReference assetReference, Transform parent)
-T                   Load<T>(string path)   // синхронный fallback через Resources
-void                Cleanup()
+```api
+UniTask<T> | LoadAsync<T>(AssetReference assetReference)
+UniTask<T> | LoadAsync<T>(string assetAddress)
+UniTask<GameObject> | InstantiateAsync(string address)
+UniTask<GameObject> | InstantiateAsync(string address, Transform parent)
+UniTask<GameObject> | InstantiateAsync(AssetReference assetReference)
+UniTask<GameObject> | InstantiateAsync(AssetReference assetReference, Transform parent)
+T | Load<T>(string path) | синхронный fallback через Resources
+void | Cleanup()
 ```
 
 ### Предзагрузка
@@ -154,18 +146,16 @@ void                Cleanup()
 
 Загружает префаб `GameInstance`. До вызова `Instantiate` выставляется `prefab.SetActive(false)` - это останавливает Unity от вызова `Awake()` на компонентах `ZenjexBehaviour` до регистрации DI-биндингов. `onBeforeActivate` срабатывает с ещё неактивным инстансом, давая окно для регистрации оставшихся биндингов. Только после этого вызывается `go.SetActive(true)` - и все `Awake()` срабатывают с полностью заполненным контейнером.
 
-```
-CreateLoadingScreenRoutine()
-    │  Addressables.LoadAsync -> Instantiate -> DontDestroyOnLoad
-    │  onComplete(ILoadScreen) -> зарегистрировать в контейнере
-    ▼
-CreateGameInstanceRoutine()
-    │  Addressables.LoadAsync -> prefab.SetActive(false) -> Instantiate
-    │  onBeforeActivate(instance) -> зарегистрировать рантаймовые биндинги
-    │  go.SetActive(true) -> ZenjexBehaviour.Awake() срабатывает
-    ▼
-GameInstance.Awake()
-    │  IGameStateMachine резолвится -> EnterState<BootstrapperState>()
+```flow
+CreateLoadingScreenRoutine() |
+  Addressables.LoadAsync -> Instantiate -> DontDestroyOnLoad |
+  onComplete(ILoadScreen) | зарегистрировать в контейнере
+CreateGameInstanceRoutine() |
+  Addressables.LoadAsync -> prefab.SetActive(false) -> Instantiate |
+  onBeforeActivate(instance) | зарегистрировать рантаймовые биндинги
+  go.SetActive(true) | ZenjexBehaviour.Awake() срабатывает
+GameInstance.Awake() |
+  IGameStateMachine резолвится | EnterState<BootstrapperState>()
 ```
 
 ### Зачем деактивировать префаб

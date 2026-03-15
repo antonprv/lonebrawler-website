@@ -41,21 +41,13 @@ public interface IGamePayloadedState<TPayload> : IGameExitableState
 
 ### Transition flow
 
-```
-BootstrapperState
-    │  loads Addressables, builds DI container, initialises services
-    ▼
-LoadProgressState
-    │  reads PlayerPrefs / cloud save, validates GameProgress
-    ▼
-MainMenuState
-    │  creates main menu UI, waits for player input
-    ▼
-LoadLevelState  <- receives string payload (level key)
-    │  saves current progress, loads scene, spawns player
-    ▼
-GameLoopState
-    │  starts LiveProgressSync, activates gameplay
+```flow
+BootstrapperState | loads Addressables, builds DI container, initialises services
+LoadProgressState | reads PlayerPrefs / cloud save, validates GameProgress
+MainMenuState | creates main menu UI, waits for player input
+LoadLevelState | receives string payload (level key)
+  saves current progress, loads scene, spawns player |
+GameLoopState | starts LiveProgressSync, activates gameplay
 ```
 
 ### Machine implementation
@@ -115,15 +107,15 @@ Brief context: all services registered in `ProjectRootInstaller.InstallBindings(
 
 ### API surface
 
-```csharp
-UniTask<T>          LoadAsync<T>(AssetReference assetReference)
-UniTask<T>          LoadAsync<T>(string assetAddress)
-UniTask<GameObject> InstantiateAsync(string address)
-UniTask<GameObject> InstantiateAsync(string address, Transform parent)
-UniTask<GameObject> InstantiateAsync(AssetReference assetReference)
-UniTask<GameObject> InstantiateAsync(AssetReference assetReference, Transform parent)
-T                   Load<T>(string path)   // synchronous Resources fallback
-void                Cleanup()
+```api
+UniTask<T> | LoadAsync<T>(AssetReference assetReference)
+UniTask<T> | LoadAsync<T>(string assetAddress)
+UniTask<GameObject> | InstantiateAsync(string address)
+UniTask<GameObject> | InstantiateAsync(string address, Transform parent)
+UniTask<GameObject> | InstantiateAsync(AssetReference assetReference)
+UniTask<GameObject> | InstantiateAsync(AssetReference assetReference, Transform parent)
+T | Load<T>(string path) | synchronous Resources fallback
+void | Cleanup()
 ```
 
 ### Pre-loading
@@ -154,18 +146,16 @@ Loads and instantiates the loading curtain prefab via Addressables. The curtain 
 
 Loads the `GameInstance` prefab. Before `Instantiate` is called, `prefab.SetActive(false)` is set - this stops Unity from calling `Awake()` on `ZenjexBehaviour` components before DI bindings are registered. `onBeforeActivate` fires with the still-inactive instance, giving the caller a window to register the remaining runtime bindings. Only then does `go.SetActive(true)` run, triggering all `Awake()` calls against a fully populated container.
 
-```
-CreateLoadingScreenRoutine()
-    │  Addressables.LoadAsync -> Instantiate -> DontDestroyOnLoad
-    │  onComplete(ILoadScreen) -> register in container
-    ▼
-CreateGameInstanceRoutine()
-    │  Addressables.LoadAsync -> prefab.SetActive(false) -> Instantiate
-    │  onBeforeActivate(instance) -> register runtime bindings
-    │  go.SetActive(true) -> ZenjexBehaviour.Awake() fires
-    ▼
-GameInstance.Awake()
-    │  IGameStateMachine resolved -> EnterState<BootstrapperState>()
+```flow
+CreateLoadingScreenRoutine() |
+  Addressables.LoadAsync -> Instantiate -> DontDestroyOnLoad |
+  onComplete(ILoadScreen) | register in container
+CreateGameInstanceRoutine() |
+  Addressables.LoadAsync -> prefab.SetActive(false) -> Instantiate |
+  onBeforeActivate(instance) | register runtime bindings
+  go.SetActive(true) | ZenjexBehaviour.Awake() fires
+GameInstance.Awake() |
+  IGameStateMachine resolved | EnterState<BootstrapperState>()
 ```
 
 ### Why deactivate the prefab

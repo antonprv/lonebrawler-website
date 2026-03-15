@@ -41,10 +41,10 @@ The single-track path matters for level music that uses one long ambient track -
 
 ### Play / Stop / CrossfadeTo
 
-```csharp
-public async UniTask Play()
-public async UniTask Stop()
-public async UniTask CrossfadeTo(MusicPlaylist playlist)
+```api
+UniTask | Play() | fade in from 0 to target volume
+UniTask | Stop() | fade out to 0
+UniTask | CrossfadeTo(MusicPlaylist playlist) | cancel current, start new crossfade
 ```
 
 All three are `async UniTask` methods. Each call starts a new `CancellationTokenSource` session, cancelling any in-flight fade or crossfade before the new one begins - no overlapping async operations.

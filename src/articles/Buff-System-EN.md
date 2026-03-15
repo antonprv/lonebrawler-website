@@ -154,12 +154,12 @@ Internally: `Dictionary<BuffClassName, List<BuffBase>>`. A buff class can have m
 
 ### Public API
 
-```csharp
-void AddBuff(BuffBase buff, BuffClassName className)
-void RemoveBuff(BuffBase buff, BuffClassName className)
-IReadOnlyList<BuffBase> GetPlayerBuffs(BuffClassName className)
-void Cleanup()           // full reset - called on level load
-void CleanupActiveBuffs() // calls Cleanup() on each live instance
+```api
+void | AddBuff(BuffBase buff, BuffClassName className)
+void | RemoveBuff(BuffBase buff, BuffClassName className)
+IReadOnlyList<BuffBase> | GetPlayerBuffs(BuffClassName className)
+void | Cleanup() | full reset — called on level load
+void | CleanupActiveBuffs() | calls Cleanup() on each live instance
 ```
 
 `Cleanup()` runs at the start of `ReadProgress()` to discard all instances pointing to the previous scene's player object, stopping stale entries from being picked up during buff restore.

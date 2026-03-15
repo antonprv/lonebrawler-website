@@ -154,12 +154,12 @@ protected async UniTask SpawnEffectAsync(Transform parent = null, CancellationTo
 
 ### Публичный API
 
-```csharp
-void AddBuff(BuffBase buff, BuffClassName className)
-void RemoveBuff(BuffBase buff, BuffClassName className)
-IReadOnlyList<BuffBase> GetPlayerBuffs(BuffClassName className)
-void Cleanup()            // полный сброс - вызывается при загрузке уровня
-void CleanupActiveBuffs() // вызывает Cleanup() на каждом живом инстансе
+```api
+void | AddBuff(BuffBase buff, BuffClassName className)
+void | RemoveBuff(BuffBase buff, BuffClassName className)
+IReadOnlyList<BuffBase> | GetPlayerBuffs(BuffClassName className)
+void | Cleanup() | полный сброс — при загрузке уровня
+void | CleanupActiveBuffs() | вызывает Cleanup() на каждом инстансе
 ```
 
 `Cleanup()` запускается в начале `ReadProgress()` - выбрасывает все инстансы, указывающие на игрока из предыдущей сцены, чтобы устаревшие записи не подбирались при восстановлении баффов.

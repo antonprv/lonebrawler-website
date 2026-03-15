@@ -121,14 +121,12 @@ public bool TrySpendSouls(int amount)
 
 ### Последовательность триггера
 
-```
-Игрок входит в BoxCollider триггер
-    |
-    v  (one-shot: _triggered = true предотвращает двойное срабатывание)
-UpdateLastTeleportName()  -> записывает uniqueName в WorldData
-UpdateLastTeleportTime()  -> записывает DateTime.UtcNow.Ticks в WorldData
-SaveProgress()            -> полное сохранение через SaveComponent
-LoadLevel(levelKey)       -> GameStateMachine.EnterState<LoadLevelState, string>(levelKey)
+```flow
+Игрок входит в BoxCollider триггер | one-shot: _triggered = true предотвращает повтор
+UpdateLastTeleportName() | записывает uniqueName в WorldData
+UpdateLastTeleportTime() | записывает DateTime.UtcNow.Ticks в WorldData
+SaveProgress() | полное сохранение через SaveComponent
+LoadLevel(levelKey) | GameStateMachine.EnterState<LoadLevelState, string>(levelKey)
 ```
 
 ### Восстановление точки спауна

@@ -239,6 +239,9 @@ async function renderArticle(articleId, lang) {
   content.innerHTML = '';
   content.appendChild(wrap);
 
+  /* Apply C# syntax highlighting */
+  applyCodeHighlighting(wrap);
+
   /* Scroll to top */
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -383,4 +386,67 @@ function getIcon(name, size = 12) {
     home:    `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
   };
   return icons[name] || icons.box;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   C# SYNTAX HIGHLIGHTING
+   Called after article HTML is injected into the DOM.
+   ════════════════════════════════════════════════════════════ */
+function highlightCsharp(block) {
+  var raw   = block.innerHTML;
+  var lines = raw.split('\n');
+  var out   = [];
+
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    var commentStart = -1;
+    for (var ci = 0; ci < line.length - 1; ci++) {
+      if (line[ci] === '/' && line[ci + 1] === '/' && (ci === 0 || line[ci - 1] !== ':')) {
+        commentStart = ci;
+        break;
+      }
+    }
+    var codePart    = commentStart >= 0 ? line.slice(0, commentStart) : line;
+    var commentPart = commentStart >= 0 ? line.slice(commentStart)    : '';
+
+    codePart = highlightCodeLine(codePart);
+    if (commentPart) commentPart = '<span class="hl-c">' + commentPart + '</span>';
+    out.push(codePart + commentPart);
+  }
+  block.innerHTML = out.join('\n');
+}
+
+function highlightCodeLine(s) {
+  var strings = [];
+  s = s.replace(/(&quot;(?:[^&]|&(?!quot;))*&quot;)/g, function(m) {
+    strings.push(m);
+    return '\x00S' + (strings.length - 1) + '\x00';
+  });
+
+  var attrs = [];
+  s = s.replace(/\[([A-Za-z][A-Za-z0-9_., ]*)\]/g, function(m) {
+    attrs.push(m);
+    return '\x00A' + (attrs.length - 1) + '\x00';
+  });
+
+  var KW = 'public|private|protected|internal|static|abstract|override|virtual|sealed|readonly|const|new|class|interface|namespace|using|return|void|bool|int|float|double|string|var|null|true|false|this|base|typeof|if|else|for|foreach|while|yield|async|await|get|set|in|out|ref|params|where|event|delegate|partial|struct|enum|operator|is|as|try|catch|finally|throw|switch|case|break|continue';
+  s = s.replace(new RegExp('\\b(' + KW + ')\\b', 'g'), '<span class="hl-k">$1</span>');
+
+  s = s.replace(/\x00S(\d+)\x00/g, function(_, i) {
+    return '<span class="hl-s">' + strings[+i] + '</span>';
+  });
+
+  s = s.replace(/\b([A-Z][A-Za-z0-9_]*)\b(?![^<]*>)/g, '<span class="hl-t">$1</span>');
+
+  s = s.replace(/\x00A(\d+)\x00/g, function(_, i) {
+    return '<span class="hl-a">' + attrs[+i] + '</span>';
+  });
+
+  return s;
+}
+
+/* Run highlighting on all csharp blocks after render */
+function applyCodeHighlighting(container) {
+  container.querySelectorAll('code.language-csharp, code.language-cs').forEach(highlightCsharp);
 }

@@ -121,14 +121,12 @@ Check and deduct happen in a single call. If the balance is too low, `false` com
 
 ### Trigger sequence
 
-```
-Player enters BoxCollider trigger
-    |
-    v  (one-shot guard: _triggered = true prevents double-fire)
-UpdateLastTeleportName()  -> writes uniqueName to WorldData
-UpdateLastTeleportTime()  -> writes DateTime.UtcNow.Ticks to WorldData
-SaveProgress()            -> full save via SaveComponent
-LoadLevel(levelKey)       -> GameStateMachine.EnterState<LoadLevelState, string>(levelKey)
+```flow
+Player enters BoxCollider trigger | one-shot guard: _triggered = true prevents double-fire
+UpdateLastTeleportName() | writes uniqueName to WorldData
+UpdateLastTeleportTime() | writes DateTime.UtcNow.Ticks to WorldData
+SaveProgress() | full save via SaveComponent
+LoadLevel(levelKey) | GameStateMachine.EnterState<LoadLevelState, string>(levelKey)
 ```
 
 ### Spawn point restoration

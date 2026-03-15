@@ -41,10 +41,10 @@
 
 ### Play / Stop / CrossfadeTo
 
-```csharp
-public async UniTask Play()
-public async UniTask Stop()
-public async UniTask CrossfadeTo(MusicPlaylist playlist)
+```api
+UniTask | Play() | нарастание громкости с 0 до цели
+UniTask | Stop() | спад громкости до 0
+UniTask | CrossfadeTo(MusicPlaylist playlist) | отмена текущего, запуск кросфейда
 ```
 
 Все три - `async UniTask`-методы. Каждый вызов запускает новую сессию `CancellationTokenSource`, отменяя любой выполняющийся fade или crossfade до начала нового - операции не перекрываются.
