@@ -83,8 +83,8 @@ ScriptableObject `MusicPlayerConfig` задаёт все тайминги:
 
 `TrackPreLoader` (реализующий `ITrackLoader`) загружает ассеты `AudioClip` из Addressables асинхронно.
 
-```csharp
-public async UniTask<AudioClip> LoadAsync(AssetReferenceT<AudioClip> reference, CancellationToken ct)
+```api
+UniTask<AudioClip> | LoadAsync(AssetReferenceT<AudioClip> reference, CancellationToken ct) | async
 ```
 
 Загруженные клипы кешируются по GUID ассета. Когда `AutoAdvanceLoop` вызывает `PreloadNext()`, следующий клип грузится пока в текущем треке ещё `crossfadeDuration` секунд - к началу кросфейда он уже в памяти. `ReleaseAll()` освобождает все загруженные хэндлы за один вызов - в `MusicPlayer.OnDestroy()` и перед каждым `CrossfadeTo()`.
@@ -95,8 +95,8 @@ public async UniTask<AudioClip> LoadAsync(AssetReferenceT<AudioClip> reference, 
 
 `Fader` (реализующий `IFader`) интерполирует громкость:
 
-```csharp
-public async UniTask Fade(AudioSource source, float from, float to, float duration, CancellationToken ct)
+```api
+UniTask | Fade(AudioSource source, float from, float to, float duration, CancellationToken ct) | async
 ```
 
 Громкость лерпируется покадрово через `ITimeService.UnscaledDeltaTime` - фейды не зависят от `Time.timeScale`, пауза не замораживает выполняющийся fade. `CancellationToken` позволяет немедленно прервать любой fade при запуске новой операции.
@@ -160,8 +160,17 @@ public ReactiveProperty<float> MusicVolumeRP { get; set; } = new(1f);
 Значения громкости персистируются в `SystemSettings`, отдельном от `GameProgress` объекте сохранения:
 
 ```csharp
-public void ReadSettings(SystemSettings s)    { SoundVolumeRP.Value = s.SoundVolume; MusicVolumeRP.Value = s.MusicVolume; }
-public void WriteToSettings(SystemSettings s) { s.SoundVolume = SoundVolumeRP.CurrentValue; s.MusicVolume = MusicVolumeRP.CurrentValue; }
+public void ReadSettings(SystemSettings s)
+{
+    SoundVolumeRP.Value = s.SoundVolume;
+    MusicVolumeRP.Value = s.MusicVolume;
+}
+
+public void WriteToSettings(SystemSettings s)
+{
+    s.SoundVolume = SoundVolumeRP.CurrentValue;
+    s.MusicVolume = MusicVolumeRP.CurrentValue;
+}
 ```
 
 `SaveLoadService` всегда пишет `SystemSettings` при сохранении, вне зависимости от `isInitial` - настройки громкости переживают старты новых игр.

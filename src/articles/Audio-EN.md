@@ -83,8 +83,8 @@ For multi-track playlists, after `Play()` finishes its fade-in, `AutoAdvanceLoop
 
 `TrackPreLoader` (implementing `ITrackLoader`) handles async loading of `AudioClip` assets from Addressables.
 
-```csharp
-public async UniTask<AudioClip> LoadAsync(AssetReferenceT<AudioClip> reference, CancellationToken ct)
+```api
+UniTask<AudioClip> | LoadAsync(AssetReferenceT<AudioClip> reference, CancellationToken ct) | async
 ```
 
 Loaded clips are cached by asset GUID. When `AutoAdvanceLoop` calls `PreloadNext()`, the next clip fetches while the current track still has `crossfadeDuration` seconds left - so it's already in memory when the crossfade begins. `ReleaseAll()` releases every loaded handle in one call, used on `MusicPlayer.OnDestroy()` and before each `CrossfadeTo()`.
@@ -95,8 +95,8 @@ Loaded clips are cached by asset GUID. When `AutoAdvanceLoop` calls `PreloadNext
 
 `Fader` (implementing `IFader`) interpolates volume:
 
-```csharp
-public async UniTask Fade(AudioSource source, float from, float to, float duration, CancellationToken ct)
+```api
+UniTask | Fade(AudioSource source, float from, float to, float duration, CancellationToken ct) | async
 ```
 
 Volume lerps frame-by-frame using `ITimeService.UnscaledDeltaTime`, so fades are unaffected by `Time.timeScale` - pausing the game doesn't freeze a running fade. The `CancellationToken` lets any in-progress fade abort immediately when a new operation starts.
@@ -160,8 +160,17 @@ public ReactiveProperty<float> MusicVolumeRP { get; set; } = new(1f);
 Volume values persist in `SystemSettings`, a save object separate from `GameProgress`:
 
 ```csharp
-public void ReadSettings(SystemSettings s)    { SoundVolumeRP.Value = s.SoundVolume; MusicVolumeRP.Value = s.MusicVolume; }
-public void WriteToSettings(SystemSettings s) { s.SoundVolume = SoundVolumeRP.CurrentValue; s.MusicVolume = MusicVolumeRP.CurrentValue; }
+public void ReadSettings(SystemSettings s)
+{
+    SoundVolumeRP.Value = s.SoundVolume;
+    MusicVolumeRP.Value = s.MusicVolume;
+}
+
+public void WriteToSettings(SystemSettings s)
+{
+    s.SoundVolume = SoundVolumeRP.CurrentValue;
+    s.MusicVolume = MusicVolumeRP.CurrentValue;
+}
 ```
 
 `SaveLoadService` always writes `SystemSettings` on save regardless of `isInitial` - volume preferences survive new game starts.

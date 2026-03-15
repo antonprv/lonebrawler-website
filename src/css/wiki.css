@@ -879,7 +879,8 @@
   border: none;
   padding: 0;
   font-family: 'SFMono-Regular', 'Consolas', monospace;
-  word-break: break-all;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 .wiki-api-note {
   font-size: 0.74rem;
