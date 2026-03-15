@@ -293,6 +293,9 @@ footer {
   font-size: 0.74rem;
   letter-spacing: 0.05em;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ════════════════════════════════════════════════════════════
