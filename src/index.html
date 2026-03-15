@@ -76,9 +76,9 @@
           </h1>
 
           <p class="home-sub t"
-             data-ru="3D экшн на Unity. Полный производственный цикл: геймплейные системы, инфраструктура, UI, управление данными, редакторный инструментарий и собственные библиотеки — 442 файла на C#."
-             data-en="3D action game built in Unity. Full production pipeline: gameplay systems, infrastructure, UI, data management, editor tooling, and in-house libraries — 442 C# files.">
-            3D экшн на Unity. Полный производственный цикл: геймплейные системы, инфраструктура, UI, управление данными, редакторный инструментарий и собственные библиотеки — 442 файла на C#.
+             data-ru="3D Diablo-like action RPG на Unity. Полный производственный цикл: геймплейные системы, инфраструктура, UI, управление данными, редакторный инструментарий и собственные библиотеки — 442 файла на C#."
+             data-en="3D Diablo-like action RPG built in Unity. Full production pipeline: gameplay systems, infrastructure, UI, data management, editor tooling, and in-house libraries — 442 C# files.">
+            3D Diablo-like action RPG на Unity. Полный производственный цикл: геймплейные системы, инфраструктура, UI, управление данными, редакторный инструментарий и собственные библиотеки — 442 файла на C#.
           </p>
 
           <div class="home-cta-row home-cta-row--centered">
@@ -106,9 +106,9 @@
         <div class="home-about-grid">
           <div class="home-about-text">
             <p class="home-paragraph t"
-               data-ru="Lone Brawler — соло-проект 3D экшна, разработанного в Unity с нуля до продакшн-состояния. Кодовая база включает все уровни игрового приложения: инфраструктуру, геймплей, UI и инструментарий разработчика."
-               data-en="Lone Brawler is a solo 3D action project developed in Unity from scratch to production quality. The codebase covers all layers of a game application: infrastructure, gameplay, UI, and developer tooling.">
-              Lone Brawler — соло-проект 3D экшна, разработанного в Unity с нуля до продакшн-состояния. Кодовая база включает все уровни игрового приложения: инфраструктуру, геймплей, UI и инструментарий разработчика.
+               data-ru="Lone Brawler — соло-проект 3D Diablo-like action RPG, разработанного в Unity с нуля до продакшн-состояния. Кодовая база включает все уровни игрового приложения: инфраструктуру, геймплей, UI и инструментарий разработчика."
+               data-en="Lone Brawler is a solo 3D Diablo-like action RPG developed in Unity from scratch to production quality. The codebase covers all layers of a game application: infrastructure, gameplay, UI, and developer tooling.">
+              Lone Brawler — соло-проект 3D Diablo-like action RPG, разработанного в Unity с нуля до продакшн-состояния. Кодовая база включает все уровни игрового приложения: инфраструктуру, геймплей, UI и инструментарий разработчика.
             </p>
             <p class="home-paragraph t"
                data-ru="В основе архитектуры — Game State Machine с payload-переходами, собственный DI-фреймворк <code>Zenjex</code> на базе Reflex, и кеширующий слой поверх Unity Addressables. Инъекция зависимостей работает через три прохода, гарантируя заполнение полей до вызова Awake()."
@@ -352,8 +352,8 @@
 
   <footer class="home-footer">
     <span class="t" id="footer-text"
-          data-ru="© 2025 Lone Brawler"
-          data-en="© 2025 Lone Brawler">© 2025 Lone Brawler</span>
+          data-ru="© 2026 Антон Пируев — Сделано с ☕ и вниманием к деталям"
+          data-en="© 2026 Anton Piruev — Made with ☕ and attention to detail">© 2026 Антон Пируев — Сделано с ☕ и вниманием к деталям</span>
   </footer>
 
 </div><!-- /.app -->
@@ -374,8 +374,8 @@ document.addEventListener('wiki:ready', () => {
   if (footerEl) {
     const p  = cfg.site?.project || 'Lone Brawler';
     const yr = new Date().getFullYear();
-    footerEl.setAttribute('data-ru', `© ${yr}\u00a0${p}`);
-    footerEl.setAttribute('data-en', `© ${yr}\u00a0${p}`);
+    footerEl.setAttribute('data-ru', `© ${yr}\u00a0Антон Пируев — Сделано с ☕ и вниманием к деталям`);
+    footerEl.setAttribute('data-en', `© ${yr}\u00a0Anton Piruev — Made with ☕ and attention to detail`);
     const lang = window.getCurrentLang?.() || 'ru';
     footerEl.textContent = footerEl.getAttribute('data-' + lang);
   }

@@ -168,8 +168,8 @@ function renderWikiHome(lang) {
 
   const stats   = site.stats || {};
   const heroSub = isRu
-    ? '3D экшн на Unity — полный производственный цикл. Документация охватывает геймплей, инфраструктуру, UI, данные и инструментарий.'
-    : 'A 3D action game built in Unity — full production pipeline. Documentation covering gameplay, infrastructure, UI, data management, and tooling.';
+    ? '3D Diablo-like action RPG на Unity — полный производственный цикл. Документация охватывает геймплей, инфраструктуру, UI, данные и инструментарий.'
+    : 'A 3D Diablo-like action RPG built in Unity — full production pipeline. Documentation covering gameplay, infrastructure, UI, data management, and tooling.';
 
   content.innerHTML = `
     <div class="wiki-content">
