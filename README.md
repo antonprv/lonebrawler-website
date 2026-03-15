@@ -1,77 +1,90 @@
-# Lone Brawler — Wiki & Project Site
+# Lone Brawler - Wiki
 
-Статический сайт для GitHub Pages. Состоит из главной страницы-визитки проекта и вики с документацией всех игровых систем. Поддерживает два языка (RU / EN) и тёмную / светлую тему.
-
----
-
-## Деплой на GitHub Pages
-
-1. Загрузи содержимое папки `src/` в репозиторий.
-2. Перейди в **Settings → Pages**.
-3. В поле **Source** выбери ветку (`main` / `master`) и папку **`/src`** (или корень, если выложил файлы напрямую).
-4. Нажми **Save** — сайт будет доступен по адресу `https://<username>.github.io/<repo>/`.
-
-> **Важно:** сайт полностью статический, никакого сервера не нужно. Все статьи загружаются через `fetch()`, поэтому открывать `index.html` напрямую из файловой системы (по `file://`) не получится — нужен любой локальный HTTP-сервер (см. ниже).
+Static wiki site for the Lone Brawler Unity project. Two pages: a project landing page (`index.html`) and a wiki with a sidebar and article renderer (`wiki.html`). Built to match the style and architecture of the [Zenjex site](https://github.com/antonprv/Zenjex).
 
 ---
 
-## Локальный запуск
-
-```bash
-# Python 3
-cd src
-python -m http.server 8080
-
-# Node.js (npx)
-cd src
-npx serve .
-```
-
-Затем открой `http://localhost:8080`.
-
----
-
-## Структура проекта
+## Structure
 
 ```
 src/
-├── index.html              # Главная страница — визитка проекта
-├── wiki.html               # Страница вики со статьями
-├── config.json             # ← Главный конфиг: цвет, название, ссылки
-│
-├── articles/
-│   ├── index.json          # ← Структура вики: группы и список статей
-│   ├── Architecture-EN.md
-│   ├── Architecture-RU.md
-│   └── ...                 # По паре *-EN.md / *-RU.md на каждую статью
-│
-├── css/
-│   ├── variables.css       # Дизайн-токены, тёмная / светлая тема
-│   ├── animations.css      # Keyframes, .reveal, .t fading
-│   ├── layout.css          # Topbar, sidebar, контентная область
-│   ├── home.css            # Стили главной страницы
-│   └── wiki.css            # Стили статей, карточки, prev/next навигация
-│
-└── js/
-    ├── theme.js            # Переключатель тёмной / светлой темы
-    ├── lang.js             # Переключатель RU / EN, паттерн .t
-    ├── config-loader.js    # Загружает config.json и articles/index.json
-    ├── wiki.js             # Строит сайдбар, загружает и рендерит статьи
-    ├── marked.min.js       # Кастомный Markdown-парсер
-    └── scroll.js           # IntersectionObserver scroll-reveal
+  index.html              - Project landing page
+  wiki.html               - Wiki with sidebar and article renderer
+  config.json             - Site config: accent colour, project name, stats
+  css/
+    variables.css         - Design tokens, dark/light themes
+    animations.css        - Keyframes and transition helpers
+    layout.css            - Topbar, sidebar, content area
+    home.css              - Landing page styles
+    wiki.css              - Article body, home cards, prev/next nav
+  js/
+    theme.js              - Dark/light toggle, persisted in localStorage
+    lang.js               - RU/EN switcher, .t + data-ru/data-en pattern
+    marked.min.js         - Markdown parser (headings, tables, code, lists)
+    config-loader.js      - Loads config.json and articles/index.json
+    wiki.js               - Builds sidebar, fetches and renders articles
+    scroll.js             - IntersectionObserver scroll-reveal
+  articles/
+    index.json            - Wiki structure: groups and article metadata
+    Architecture-EN.md
+    Architecture-RU.md
+    Audio-EN.md
+    Audio-RU.md
+    Buff-System-EN.md
+    Buff-System-RU.md
+    Custom-Libraries-EN.md
+    Custom-Libraries-RU.md
+    Editor-Tooling-EN.md
+    Editor-Tooling-RU.md
+    Gameplay-EN.md
+    Gameplay-RU.md
+    Inventory-EN.md
+    Inventory-RU.md
+    Platform-and-SDKs-EN.md
+    Platform-and-SDKs-RU.md
+    Save-System-EN.md
+    Save-System-RU.md
+    Testing-EN.md
+    Testing-RU.md
+    UI-EN.md
+    UI-RU.md
+    Zenjex-EN.md
+    Zenjex-RU.md
 ```
 
 ---
 
-## Настройка проекта
+## Adding a new article
 
-Все глобальные параметры хранятся в одном файле — **`src/config.json`**.
+1. Create `articles/MyArticle-EN.md` and `articles/MyArticle-RU.md`.
+2. Add an entry in `articles/index.json` under the appropriate group:
+
+```json
+{
+  "id":      "MyArticle",
+  "titleRu": "Моя статья",
+  "titleEn": "My Article",
+  "descRu":  "Краткое описание на русском",
+  "descEn":  "Short description in English",
+  "icon":    "box"
+}
+```
+
+Available icon names: `box`, `code`, `monitor`, `play`, `zap`, `grid`, `save`, `volume`, `layout`, `tool`, `book`, `check`.
+
+That's it. The sidebar and home cards update automatically.
+
+---
+
+## Configuration
+
+Everything site-specific lives in `config.json`:
 
 ```json
 {
   "site": {
     "project":  "Lone Brawler",
-    "repoUrl":  "https://github.com/username/repo",
+    "repoUrl":  "https://github.com/yourname/yourrepo",
     "stats": {
       "csFiles":   442,
       "articles":  13,
@@ -81,103 +94,69 @@ src/
   "theme": {
     "accentDark":  "#e8774a",
     "accentLight": "#c4542a"
+  },
+  "noise": {
+    "frequency": 0.65,
+    "octaves":   1
   }
 }
 ```
 
-| Параметр | Описание |
-|---|---|
-| `site.project` | Название проекта в topbar и заголовках |
-| `site.repoUrl` | Ссылка на GitHub — появляется кнопкой в topbar; если пустая, кнопка скрыта |
-| `site.stats.*` | Цифры в hero-блоке вики |
-| `theme.accentDark` | Цвет акцента в тёмной теме |
-| `theme.accentLight` | Цвет акцента в светлой теме |
+- `accentDark` / `accentLight` - primary accent colour for each theme. All borders, glows, and gradients are derived from these values at runtime.
+- `repoUrl` - if set, a GitHub link appears in the topbar. Leave empty to hide it.
+- `stats` - numbers shown in the wiki home hero section.
+- `noise` - SVG turbulence grain overlaid on the background. Set `frequency: 0` to disable.
 
 ---
 
-## Добавить новую статью
+## Running locally
 
-**Шаг 1.** Создай два файла в `src/articles/`:
+The site fetches `config.json` and article files via `fetch()`, so it needs to be served over HTTP - opening `index.html` directly from the filesystem will not work.
 
-```
-src/articles/MyFeature-EN.md
-src/articles/MyFeature-RU.md
-```
+Any local server works:
 
-Файлы — обычный Markdown. Поддерживаются заголовки, код, таблицы, blockquote, списки.
+```bash
+# Python
+python3 -m http.server 8080 --directory src
 
-**Шаг 2.** Добавь запись в **`src/articles/index.json`** в нужную группу:
-
-```json
-{
-  "id":      "MyFeature",
-  "titleRu": "Моя фича",
-  "titleEn": "My Feature",
-  "descRu":  "Краткое описание для карточки на главной вики",
-  "descEn":  "Short description shown on the wiki home card",
-  "icon":    "box"
-}
+# Node (npx)
+npx serve src
 ```
 
-Доступные значения `icon`: `box`, `code`, `monitor`, `play`, `zap`, `grid`, `save`, `volume`, `layout`, `tool`, `book`, `check`.
-
-Всё — больше ничего менять не нужно. Сайдбар и карточки на главной вики обновятся автоматически.
+Then open `http://localhost:8080`.
 
 ---
 
-## Добавить новую группу статей
+## Theming
 
-В `src/articles/index.json` добавь новый объект в массив `groups`:
+The theme toggle button is in the top-left corner. The language switcher (RU / EN) is in the top-right corner. Both preferences are saved in `localStorage` and restored on the next visit.
+
+To change the colour scheme, edit `accentDark` and `accentLight` in `config.json`. The config loader applies the colours and computes all derived values (border opacity, glow, gradient stops) automatically.
+
+---
+
+## Custom fonts
+
+To use a custom font, add it to `src/` and update `config.json`:
 
 ```json
-{
-  "id":       "networking",
-  "titleRu":  "Сеть",
-  "titleEn":  "Networking",
-  "articles": [
-    {
-      "id":      "Multiplayer",
-      "titleRu": "Мультиплеер",
-      "titleEn": "Multiplayer",
-      "descRu":  "...",
-      "descEn":  "...",
-      "icon":    "monitor"
-    }
+"font": {
+  "family":   "MyFont",
+  "fallback": "system-ui, sans-serif",
+  "files": [
+    { "path": "fonts/MyFont.woff2", "variable": true }
   ]
 }
 ```
 
----
-
-## Смена цвета акцента
-
-Отредактируй `config.json`:
-
-```json
-"theme": {
-  "accentDark":  "#4ccbad",
-  "accentLight": "#4c3eaf"
-}
-```
-
-Цвет применяется ко всем границам, кнопкам, ссылкам и элементам сайдбара — через CSS-переменную `--accent`. Изменение вступает в силу без пересборки.
+Set `"variable": true` for variable fonts (`font-weight: 100 900`), `false` for static ones.
 
 ---
 
-## Как работает языковой переключатель
+## Article format
 
-Переключатель RU / EN использует паттерн из `lang.js`:
+Articles are standard Markdown. Supported elements: headings (h1-h4), paragraphs, bold, italic, inline code, fenced code blocks, blockquotes, unordered and ordered lists, tables, and horizontal rules.
 
-- HTML-элементы с классом `.t` и атрибутами `data-ru="..."` / `data-en="..."` переключаются автоматически с плавным fade.
-- Статьи загружаются по отдельному `.md`-файлу: при переключении языка просто фетчится `MyFeature-RU.md` или `MyFeature-EN.md`.
-- Выбранный язык сохраняется в `localStorage` (`cl-lang`).
+Code blocks with a language tag get the class `language-{lang}` on the `<code>` element, which you can target with a syntax highlighter if needed.
 
----
-
-## Как работает переключатель темы
-
-Тема управляется атрибутом `data-theme` на `<html>`:
-- `data-theme="dark"` — тёмная (дефолт)
-- `data-theme="light"` — светлая
-
-Все цвета — CSS-переменные в `css/variables.css`. Выбранная тема сохраняется в `localStorage` (`theme`). Также учитывается `prefers-color-scheme` системы, если пользователь ещё не выбирал явно.
+Comments in the form `<!-- screenshot -->` are ignored by the parser and can be used as placeholders inside article source files.
