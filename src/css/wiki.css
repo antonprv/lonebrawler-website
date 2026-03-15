@@ -1093,4 +1093,114 @@
 }
 
 
+/* ════════════════════════════════════════════════════════════
+   GSM DIAGRAM — GameState transition diagram
+   CSS custom properties + class-based SVG fills (presentation
+   attributes don't resolve CSS vars — only CSS properties do)
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Token map: dark (default) ── */
+.gsm-diagram {
+  margin: 1.4rem 0 1.6rem;
+  --gd-text:     #e8e4dc;
+  --gd-muted:    #6a6860;
+  --gd-arr:      #5a5850;
+  /* gray — BootStrapper */
+  --gd-s0-bg:    #252428;
+  --gd-s0-acc:   #72706a;
+  --gd-s0-bor:   #3a3836;
+  /* blue — LoadProgress */
+  --gd-s1-bg:    #132030;
+  --gd-s1-acc:   #4490d8;
+  --gd-s1-bor:   #1c3858;
+  /* purple — MainMenu */
+  --gd-s2-bg:    #1c1838;
+  --gd-s2-acc:   #7a70d0;
+  --gd-s2-bor:   #2c2858;
+  /* coral — LoadLevel */
+  --gd-s3-bg:    #2a1610;
+  --gd-s3-acc:   #cc5828;
+  --gd-s3-bor:   #442416;
+  /* teal — GameLoop */
+  --gd-s4-bg:    #0a2620;
+  --gd-s4-acc:   #1aa07a;
+  --gd-s4-bor:   #1aa07a;
+  --gd-s4-hi:    #52c8a0;
+}
+
+/* ── Token map: light ── */
+[data-theme="light"] .gsm-diagram {
+  --gd-text:     #1a1a18;
+  --gd-muted:    #7a7060;
+  --gd-arr:      #b0a898;
+  --gd-s0-bg:    #eae8e2;
+  --gd-s0-acc:   #666460;
+  --gd-s0-bor:   #c0beb8;
+  --gd-s1-bg:    #daeaf8;
+  --gd-s1-acc:   #1860a8;
+  --gd-s1-bor:   #a0c4e4;
+  --gd-s2-bg:    #eae8fc;
+  --gd-s2-acc:   #4e3ab2;
+  --gd-s2-bor:   #b0a8e4;
+  --gd-s3-bg:    #fce6de;
+  --gd-s3-acc:   #a03518;
+  --gd-s3-bor:   #e4a890;
+  --gd-s4-bg:    #d6f0e8;
+  --gd-s4-acc:   #0d6e56;
+  --gd-s4-bor:   #0d6e56;
+  --gd-s4-hi:    #0d6e56;
+}
+
+/* ── SVG container ── */
+.gsm-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ── Arrow lines & labels ── */
+.gsm-arr  { stroke: var(--gd-arr); fill: none; }
+.gsm-lbl  { fill: var(--gd-muted); }
+
+/* ── Initial pseudostate ── */
+.gsm-init { fill: var(--gd-s4-acc); }
+
+/* ── State box fills & strokes ── */
+.gsm-b0   { fill: var(--gd-s0-bg); stroke: var(--gd-s0-bor); }
+.gsm-b1   { fill: var(--gd-s1-bg); stroke: var(--gd-s1-bor); }
+.gsm-b2   { fill: var(--gd-s2-bg); stroke: var(--gd-s2-bor); }
+.gsm-b3   { fill: var(--gd-s3-bg); stroke: var(--gd-s3-bor); }
+.gsm-b4   { fill: var(--gd-s4-bg); stroke: var(--gd-s4-bor); }
+
+/* ── Accent bars ── */
+.gsm-a0   { fill: var(--gd-s0-acc); }
+.gsm-a1   { fill: var(--gd-s1-acc); }
+.gsm-a2   { fill: var(--gd-s2-acc); }
+.gsm-a3   { fill: var(--gd-s3-acc); }
+.gsm-a4   { fill: var(--gd-s4-acc); }
+
+/* ── State name & subtitle text ── */
+.gsm-name { fill: var(--gd-text); }
+.gsm-sub0 { fill: var(--gd-s0-acc); }
+.gsm-sub1 { fill: var(--gd-s1-acc); }
+.gsm-sub2 { fill: var(--gd-s2-acc); }
+.gsm-sub3 { fill: var(--gd-s3-acc); }
+.gsm-sub4 { fill: var(--gd-s4-hi);  }
+
+/* ── GameLoop pulse ring ── */
+.gsm-ring { stroke: var(--gd-s4-bor); fill: none; }
+
+/* ── Animations ── */
+@keyframes gsm-r1 { 0%,100% { opacity: .14 } 50% { opacity: .42 } }
+@keyframes gsm-r2 { 0%,100% { opacity: .05 } 50% { opacity: .18 } }
+@keyframes gsm-dt { 0%,100% { opacity:  1  } 50% { opacity: .15 } }
+@keyframes gsm-gl { 0%,100% { stroke-width: 1.2; stroke-opacity: .6 }
+                    50%      { stroke-width: 2.2; stroke-opacity:  1 } }
+
+.gsm-r1  { animation: gsm-r1  2.2s ease-in-out infinite; }
+.gsm-r2  { animation: gsm-r2  2.2s ease-in-out infinite .5s; }
+.gsm-dot { animation: gsm-dt  1.1s ease-in-out infinite; }
+.gsm-gl  { animation: gsm-gl  2.2s ease-in-out infinite; }
+
+
 

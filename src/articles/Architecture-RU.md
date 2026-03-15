@@ -84,92 +84,79 @@ private TState ChangeState<TState>() where TState : class, IGameExitableState
 `GetCurrentState()` возвращает значение enum `StateType`, позволяя любой системе проверить текущую фазу приложения без прямой ссылки на внутренности машины.
 
 <div class="gsm-diagram">
-<style>
-.gsm-diagram{margin:1.4rem 0 1.6rem;--gd-text:#e8e4dc;--gd-muted:#6a6860;--gd-arr:#4a4840;--gd-gray-bg:#252428;--gd-gray-acc:#72706a;--gd-gray-bor:#383636;--gd-blue-bg:#132030;--gd-blue-acc:#4490d8;--gd-blue-bor:#1c3858;--gd-purp-bg:#1c1838;--gd-purp-acc:#7a70d0;--gd-purp-bor:#2c2858;--gd-crl-bg:#2a1610;--gd-crl-acc:#cc5828;--gd-crl-bor:#442416;--gd-teal-bg:#0a2620;--gd-teal-acc:#1aa07a;--gd-teal-bor:#1aa07a;--gd-teal-hi:#52c8a0}
-html[data-theme="light"] .gsm-diagram{--gd-text:#1a1a18;--gd-muted:#5a5850;--gd-arr:#a0988a;--gd-gray-bg:#eae8e2;--gd-gray-acc:#666460;--gd-gray-bor:#c0beb8;--gd-blue-bg:#daeaf8;--gd-blue-acc:#1860a8;--gd-blue-bor:#a0c4e4;--gd-purp-bg:#eae8fc;--gd-purp-acc:#4e3ab2;--gd-purp-bor:#b0a8e4;--gd-crl-bg:#fce6de;--gd-crl-acc:#a03518;--gd-crl-bor:#e4a890;--gd-teal-bg:#d6f0e8;--gd-teal-acc:#0d6e56;--gd-teal-bor:#0d6e56;--gd-teal-hi:#0d6e56}
-.gsm-diagram svg{display:block;width:100%;height:auto}
-@keyframes gsm-r1{0%,100%{opacity:.12}50%{opacity:.40}}
-@keyframes gsm-r2{0%,100%{opacity:.04}50%{opacity:.16}}
-@keyframes gsm-dt{0%,100%{opacity:1}50%{opacity:.15}}
-@keyframes gsm-gl{0%,100%{stroke-opacity:.6;stroke-width:1.2}50%{stroke-opacity:1;stroke-width:2}}
-.gsm-r1{animation:gsm-r1 2.2s ease-in-out infinite}
-.gsm-r2{animation:gsm-r2 2.2s ease-in-out infinite .5s}
-.gsm-dt{animation:gsm-dt 1.1s ease-in-out infinite}
-.gsm-gl{animation:gsm-gl 2.2s ease-in-out infinite}
-</style>
 <svg viewBox="0 0 600 480" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
   <defs>
     <marker id="gsm-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M2 1L8 5L2 9" class="gsm-arr" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
     </marker>
   </defs>
 
   <!-- Pulsing rings behind GameLoop -->
-  <circle class="gsm-r2" cx="300" cy="350" r="97" fill="none" stroke="var(--gd-teal-bor)" stroke-width="1"/>
-  <circle class="gsm-r1" cx="300" cy="350" r="85" fill="none" stroke="var(--gd-teal-bor)" stroke-width="1.2"/>
+  <circle class="gsm-ring gsm-r2" cx="300" cy="350" r="97" stroke-width="1"/>
+  <circle class="gsm-ring gsm-r1" cx="300" cy="350" r="85" stroke-width="1.2"/>
 
   <!-- Forward arrows -->
-  <line x1="300" y1="72"  x2="300" y2="102" stroke="var(--gd-arr)" stroke-width="1" marker-end="url(#gsm-ah)"/>
-  <line x1="300" y1="147" x2="300" y2="177" stroke="var(--gd-arr)" stroke-width="1" marker-end="url(#gsm-ah)"/>
-  <line x1="300" y1="222" x2="300" y2="252" stroke="var(--gd-arr)" stroke-width="1" marker-end="url(#gsm-ah)"/>
-  <line x1="300" y1="297" x2="300" y2="324" stroke="var(--gd-arr)" stroke-width="1" marker-end="url(#gsm-ah)"/>
+  <line class="gsm-arr" x1="300" y1="72"  x2="300" y2="102" stroke-width="1" marker-end="url(#gsm-ah)"/>
+  <line class="gsm-arr" x1="300" y1="147" x2="300" y2="177" stroke-width="1" marker-end="url(#gsm-ah)"/>
+  <line class="gsm-arr" x1="300" y1="222" x2="300" y2="252" stroke-width="1" marker-end="url(#gsm-ah)"/>
+  <line class="gsm-arr" x1="300" y1="297" x2="300" y2="324" stroke-width="1" marker-end="url(#gsm-ah)"/>
 
   <!-- Arrow labels -->
-  <text x="306" y="87"  font-size="8" fill="var(--gd-muted)" dominant-baseline="central">Scene loaded</text>
-  <text x="306" y="162" font-size="8" fill="var(--gd-muted)" dominant-baseline="central">Auto</text>
-  <text x="306" y="237" font-size="8" fill="var(--gd-muted)" dominant-baseline="central">New game / Continue</text>
-  <text x="306" y="311" font-size="8" fill="var(--gd-muted)" dominant-baseline="central">Level loaded</text>
+  <text class="gsm-lbl" x="306" y="87"  font-size="8" dominant-baseline="central">Scene loaded</text>
+  <text class="gsm-lbl" x="306" y="162" font-size="8" dominant-baseline="central">Auto</text>
+  <text class="gsm-lbl" x="306" y="237" font-size="8" dominant-baseline="central">New game / Continue</text>
+  <text class="gsm-lbl" x="306" y="311" font-size="8" dominant-baseline="central">Level loaded</text>
 
   <!-- Back arrow: GameLoop → MainMenu (right) -->
-  <path d="M386,350 L472,350 L472,200 L387,200" fill="none" stroke="var(--gd-arr)" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#gsm-ah)"/>
-  <text x="476" y="275" font-size="8" fill="var(--gd-muted)" dominant-baseline="central">quit_to_menu</text>
+  <path class="gsm-arr" d="M386,350 L472,350 L472,200 L387,200" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#gsm-ah)"/>
+  <text class="gsm-lbl" x="476" y="275" font-size="8" dominant-baseline="central">quit_to_menu</text>
 
   <!-- Back arrow: GameLoop → LoadLevel (left) -->
-  <path d="M214,350 L128,350 L128,275 L213,275" fill="none" stroke="var(--gd-arr)" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#gsm-ah)"/>
-  <text x="124" y="312" font-size="8" fill="var(--gd-muted)" text-anchor="end" dominant-baseline="central">Teleport</text>
+  <path class="gsm-arr" d="M214,350 L128,350 L128,275 L213,275" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#gsm-ah)"/>
+  <text class="gsm-lbl" x="124" y="312" font-size="8" text-anchor="end" dominant-baseline="central">Teleport</text>
 
   <!-- State 0: BootStrapperState -->
-  <rect x="214" y="28"  width="172" height="44" rx="7" fill="var(--gd-gray-bg)" stroke="var(--gd-gray-bor)" stroke-width="0.8"/>
-  <rect x="214" y="34"  width="3"   height="32" rx="2" fill="var(--gd-gray-acc)"/>
-  <text x="300" y="46"  font-size="10" font-weight="600" fill="var(--gd-text)"     text-anchor="middle" dominant-baseline="central">BootStrapperState</text>
-  <text x="300" y="61"  font-size="8"               fill="var(--gd-gray-acc)" text-anchor="middle" dominant-baseline="central">Init &amp; config</text>
+  <rect class="gsm-b0" x="214" y="28"  width="172" height="44" rx="7" stroke-width="0.8"/>
+  <rect class="gsm-a0" x="214" y="34"  width="3"   height="32" rx="2"/>
+  <text class="gsm-name" x="300" y="46"  font-size="10" font-weight="600" text-anchor="middle" dominant-baseline="central">BootStrapperState</text>
+  <text class="gsm-sub0" x="300" y="61"  font-size="8"               text-anchor="middle" dominant-baseline="central">Init &amp; config</text>
 
   <!-- State 1: LoadProgressState -->
-  <rect x="214" y="103" width="172" height="44" rx="7" fill="var(--gd-blue-bg)" stroke="var(--gd-blue-bor)" stroke-width="0.8"/>
-  <rect x="214" y="109" width="3"   height="32" rx="2" fill="var(--gd-blue-acc)"/>
-  <text x="300" y="121" font-size="10" font-weight="600" fill="var(--gd-text)"     text-anchor="middle" dominant-baseline="central">LoadProgressState</text>
-  <text x="300" y="136" font-size="8"               fill="var(--gd-blue-acc)" text-anchor="middle" dominant-baseline="central">Load / create save</text>
+  <rect class="gsm-b1" x="214" y="103" width="172" height="44" rx="7" stroke-width="0.8"/>
+  <rect class="gsm-a1" x="214" y="109" width="3"   height="32" rx="2"/>
+  <text class="gsm-name" x="300" y="121" font-size="10" font-weight="600" text-anchor="middle" dominant-baseline="central">LoadProgressState</text>
+  <text class="gsm-sub1" x="300" y="136" font-size="8"               text-anchor="middle" dominant-baseline="central">Load / create save</text>
 
   <!-- State 2: MainMenuState -->
-  <rect x="214" y="178" width="172" height="44" rx="7" fill="var(--gd-purp-bg)" stroke="var(--gd-purp-bor)" stroke-width="0.8"/>
-  <rect x="214" y="184" width="3"   height="32" rx="2" fill="var(--gd-purp-acc)"/>
-  <text x="300" y="196" font-size="10" font-weight="600" fill="var(--gd-text)"     text-anchor="middle" dominant-baseline="central">MainMenuState</text>
-  <text x="300" y="211" font-size="8"               fill="var(--gd-purp-acc)" text-anchor="middle" dominant-baseline="central">Menu UI active</text>
+  <rect class="gsm-b2" x="214" y="178" width="172" height="44" rx="7" stroke-width="0.8"/>
+  <rect class="gsm-a2" x="214" y="184" width="3"   height="32" rx="2"/>
+  <text class="gsm-name" x="300" y="196" font-size="10" font-weight="600" text-anchor="middle" dominant-baseline="central">MainMenuState</text>
+  <text class="gsm-sub2" x="300" y="211" font-size="8"               text-anchor="middle" dominant-baseline="central">Menu UI active</text>
 
   <!-- State 3: LoadLevelState -->
-  <rect x="214" y="253" width="172" height="44" rx="7" fill="var(--gd-crl-bg)" stroke="var(--gd-crl-bor)" stroke-width="0.8"/>
-  <rect x="214" y="259" width="3"   height="32" rx="2" fill="var(--gd-crl-acc)"/>
-  <text x="300" y="271" font-size="10" font-weight="600" fill="var(--gd-text)"     text-anchor="middle" dominant-baseline="central">LoadLevelState</text>
-  <text x="300" y="286" font-size="8"               fill="var(--gd-crl-acc)"  text-anchor="middle" dominant-baseline="central">Setup game world</text>
+  <rect class="gsm-b3" x="214" y="253" width="172" height="44" rx="7" stroke-width="0.8"/>
+  <rect class="gsm-a3" x="214" y="259" width="3"   height="32" rx="2"/>
+  <text class="gsm-name" x="300" y="271" font-size="10" font-weight="600" text-anchor="middle" dominant-baseline="central">LoadLevelState</text>
+  <text class="gsm-sub3" x="300" y="286" font-size="8"               text-anchor="middle" dominant-baseline="central">Setup game world</text>
 
-  <!-- State 4: GameLoopState (active, animated) -->
-  <rect class="gsm-gl" x="214" y="325" width="172" height="50" rx="9" fill="var(--gd-teal-bg)" stroke="var(--gd-teal-bor)" stroke-width="1.5"/>
-  <rect x="214" y="332" width="3"   height="36" rx="2" fill="var(--gd-teal-acc)"/>
-  <text x="300" y="345" font-size="10" font-weight="600" fill="var(--gd-text)" text-anchor="middle" dominant-baseline="central">GameLoopState</text>
-  <circle class="gsm-dt" cx="270" cy="362" r="4" fill="var(--gd-teal-hi)"/>
-  <text x="278" y="362" font-size="8" fill="var(--gd-teal-hi)" dominant-baseline="central">Running</text>
+  <!-- State 4: GameLoopState (active, animated border) -->
+  <rect class="gsm-b4 gsm-gl" x="214" y="325" width="172" height="50" rx="9" stroke-width="1.5"/>
+  <rect class="gsm-a4" x="214" y="332" width="3"   height="36" rx="2"/>
+  <text class="gsm-name" x="300" y="345" font-size="10" font-weight="600" text-anchor="middle" dominant-baseline="central">GameLoopState</text>
+  <circle class="gsm-sub4 gsm-dot" cx="270" cy="362" r="4"/>
+  <text  class="gsm-sub4 gsm-dot" x="278" y="362" font-size="8" dominant-baseline="central">Running</text>
 
   <!-- Initial pseudostate -->
-  <circle cx="300" cy="14" r="6" fill="var(--gd-teal-acc)"/>
-  <line x1="300" y1="20" x2="300" y2="27" stroke="var(--gd-arr)" stroke-width="1" marker-end="url(#gsm-ah)"/>
+  <circle class="gsm-init" cx="300" cy="14" r="6"/>
+  <line   class="gsm-arr"  x1="300" y1="20" x2="300" y2="27" stroke-width="1" marker-end="url(#gsm-ah)"/>
 
   <!-- Legend -->
-  <line x1="32" y1="462" x2="66" y2="462" stroke="var(--gd-arr)" stroke-width="1" marker-end="url(#gsm-ah)"/>
-  <text x="72" y="462" font-size="8" fill="var(--gd-muted)" dominant-baseline="central">Auto</text>
-  <line x1="138" y1="462" x2="172" y2="462" stroke="var(--gd-arr)" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#gsm-ah)"/>
-  <text x="178" y="462" font-size="8" fill="var(--gd-muted)" dominant-baseline="central">Triggered</text>
-  <circle cx="258" cy="462" r="4" fill="var(--gd-teal-hi)"/>
-  <text x="266" y="462" font-size="8" fill="var(--gd-muted)" dominant-baseline="central">Active state</text>
+  <line   class="gsm-arr"  x1="32"  y1="462" x2="66"  y2="462" stroke-width="1" marker-end="url(#gsm-ah)"/>
+  <text   class="gsm-lbl"  x="72"   y="462"  font-size="8" dominant-baseline="central">Auto</text>
+  <line   class="gsm-arr"  x1="138" y1="462" x2="172" y2="462" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#gsm-ah)"/>
+  <text   class="gsm-lbl"  x="178"  y="462"  font-size="8" dominant-baseline="central">Triggered</text>
+  <circle class="gsm-sub4" cx="258" cy="462" r="4"/>
+  <text   class="gsm-lbl"  x="266"  y="462"  font-size="8" dominant-baseline="central">Active state</text>
 </svg>
 </div>
 
