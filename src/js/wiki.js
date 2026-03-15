@@ -224,7 +224,7 @@ async function renderArticle(articleId, lang) {
     return;
   }
 
-  const html = typeof marked !== 'undefined' ? marked.parse(md, { html: true }) : `<pre>${escHtml(md)}</pre>`;
+  const html = typeof marked !== 'undefined' ? marked.parse(md) : `<pre>${escHtml(md)}</pre>`;
   const wrap = document.createElement('div');
   wrap.className = 'wiki-content';
   const body = document.createElement('div');
