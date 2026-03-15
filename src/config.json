@@ -22,8 +22,14 @@
     "octaves":   1
   },
   "font": {
-    "family":   "system-ui",
-    "fallback": "sans-serif"
+    "family": "TikTokSans",
+    "fallback": "system-ui, sans-serif",
+    "files": [
+      {
+        "path": "fonts/TikTokSans.woff2",
+        "variable": true
+      }
+    ]
   },
   "articlesDir": "articles"
 }
